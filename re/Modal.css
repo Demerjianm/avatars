@@ -1,0 +1,102 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  border: none;
+  background: #070b28;
+  opacity: 0.5;
+  z-index: 500;
+}
+
+.Modal-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 500px;
+  max-height: 370px;
+  box-shadow: 0 6px 10px 0 rgba(24, 33, 45, 0.06);
+  border: solid 1px rgba(24, 33, 45, 0.02);
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 56px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.Modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.Modal-buttons {
+  margin-top: 17px;
+}
+
+.Modal-button {
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 142px;
+  height: 48px;
+  box-shadow: 0 2px 3px 0 rgba(16, 22, 64, 0.12);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #FFF;
+
+  font-family: "CerebriSans-Medium";
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+}
+
+.Modal-button--ph {
+  background-color: #da552f;
+}
+
+.Modal-button--twitter {
+  background-color: #2baee7;
+  margin-right: 16px;
+}
+
+.Modal-title {
+  font-family: "CerebriSans-Medium";
+  font-size: 40px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #070b28;
+}
+
+.Modal-subtitle {
+  font-family: "CerebriSans-Light";
+  font-size: 18px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.56;
+  letter-spacing: -0.4px;
+  color: #73859d;
+}
+
+.Modal-shareIcon {
+  display: inline-block;
+  margin-right: 12px;
+}

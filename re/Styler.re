@@ -1,0 +1,95 @@
+open Belt;
+
+[%bs.raw {|require('./Styler.css')|}];
+
+type state = {index: int};
+
+type action =
+  | Increment
+  | Decrement;
+
+let component = ReasonReact.reducerComponent("Styler");
+let make =
+    (
+      ~id,
+      ~label,
+      ~colors,
+      ~styles,
+      ~selectedColor,
+      ~selectedStyle,
+      ~onSelectColor,
+      ~onSelectStyle,
+      _children,
+    ) => {
+  ...component,
+  initialState: () => {index: 0},
+  reducer: (action, state) =>
+    switch (action) {
+    | Increment =>
+      let inc =
+        List.length(styles) - 1 > state.index ?
+          1 : - List.length(styles) + 1;
+      let index = state.index + inc;
+      let style = List.get(styles, index);
+      ReasonReact.UpdateWithSideEffects(
+        {...state, index},
+        (_self => onSelectStyle({j|$style|j})),
+      );
+    | Decrement =>
+      let inc = state.index > 0 ? 1 : - List.length(styles) + 1;
+      let index = state.index - inc;
+      let style = List.get(styles, index);
+      ReasonReact.UpdateWithSideEffects(
+        {...state, index},
+        (_self => onSelectStyle({j|$style|j})),
+      );
+    },
+  render: ({send, state}) => {
+    let colorSwatches = switch(id) {
+      | "Eyes" | "Nose" | "Mouth" => ReasonReact.null
+      | _ => ReasonReact.array(List.toArray(List.map(colors, color => {
+        <ColorSwatch
+          key=color
+          value=color
+          disabled={color === "#EEEFF5"}
+          selected={color === selectedColor}
+          onSelect={value => onSelectColor(value)}
+        />
+      }
+      )));
+    };
+    let image = <SvgLoader fill={"#" ++ selectedColor} name=selectedStyle />;
+
+    let showLeftArrow =
+      List.length(styles) > 1 ?
+        <button className="Styler-btn" onClick={_ => send(Decrement)}>
+          <img className="Styler-arrow" src="/images/arrow.svg" />
+        </button> : <div />;
+
+    let showRightArrow =
+      List.length(styles) > 1 ?
+        <button className="Styler-btn" onClick={_ => send(Increment)}>
+          <img
+            className="Styler-arrow Styler-arrow--right"
+            src="/images/arrow.svg"
+          />
+        </button> : <div />;
+
+    let showImage = switch(id) {
+      | "Background" => ReasonReact.null
+      | _ => <div className={j| Styler-model svg-$id |j}> image </div>
+    };
+
+    <div className="Styler-container">
+      <span className="Styler-label"> {ReasonReact.string(label)} </span>
+      <div className="Styler-picker">
+        showLeftArrow
+        showImage
+        showRightArrow
+      </div>
+      <div className="Styler-colors">
+        colorSwatches
+      </div>
+    </div>;
+  },
+};
