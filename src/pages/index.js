@@ -14,7 +14,6 @@ s3.config.update({
     secretAccessKey: y,
   },
 })
-console.log(s3)
 function getRandom(list) {
   const l = list.length
   return list[Math.floor(Math.random() * l)]
@@ -104,15 +103,6 @@ export default class IndexPage extends React.PureComponent {
     // try {
     const filename = `${this.state.id}`
     const img = await this.srcToFile(file, filename, 'image/png')
-    //   console.log(img)
-    //   const stored = await Storage.put(filename, img, {
-    //     contentType: img.type,
-    //   })
-    //   console.log(stored)
-    //   return stored.key
-    // } catch (e) {
-    //   console.log('s3 upload error: ', e)
-    // }
     var params = {
       Body: img,
       Bucket: z,
@@ -140,7 +130,6 @@ export default class IndexPage extends React.PureComponent {
     const node = document.getElementsByClassName(
       'AvatarGenerator-pngContainer'
     )[0]
-    console.log(Storage)
 
     const canvas = await html2canvas(node)
     const dataUrl = canvas.toDataURL()
